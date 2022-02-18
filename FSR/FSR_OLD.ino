@@ -92,7 +92,7 @@ void testSD () {
   }
 
   // re-open the file for reading:
-  myFile = SD.open("test.txt");
+  myFile = SD.open("test.txt", FILE_READ);
   if (myFile) {
     Serial.println("test.txt:");
 

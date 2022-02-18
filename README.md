@@ -21,5 +21,13 @@ obchod [tady](https://dratek.cz/arduino/991-ctecka-sd-karet.html?gclid=Cj0KCQiAp
 
 tutoriál [tady](https://docs.arduino.cc/learn/programming/sd-guide).
 
+## .csv sormát dat
+Oddělení pomocí středníků.
+
+Čas v milisekundách od spuštění.
+
+Pozice senzoru.
+
+Naměřená hodnota.
 
 
