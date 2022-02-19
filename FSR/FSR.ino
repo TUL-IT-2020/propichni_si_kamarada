@@ -4,6 +4,9 @@
 #define OK 0
 #define NOK 1
 
+#define NUMBER_OF_SENSORS 2
+#define HIT_BOUNDARY 300
+
 String fileTitle = "record";
 String fileFormat = ".csv";
 
@@ -15,7 +18,7 @@ void setup() {
 	setupSD();
 }
 
-int readAnalogForce () {
+int readForce (int index) {
 	int analogReading = analogRead(FORCE_SENSOR_PIN);
 }
 
@@ -29,7 +32,7 @@ int initFile (String fileName) {
 	if (!file) {
 		return NOK;
 	}
-	myFile.println("time;position;force");
+	file.println("time;position;force");
 	file.close();
 	return OK;
 }
@@ -44,7 +47,6 @@ int saveMeasurement (String fileName, unsigned long time, int position, int forc
 	return OK;
 }
 
-
 void recordMatch() {
 	bool matchEnd = false;
 	int force = -1;
@@ -53,11 +55,17 @@ void recordMatch() {
 	String fileName = fileTitle + fileNumber + fileFormat;
 	initFile(fileName);
 
+	int position = 0;
+
 	while (!matchEnd) {
-		// TODO
-		// měreni
-		force = readAnalogForce();
-		saveMeasurement(fileName, millis(), int position, force);
+		if (position >= NUMBER_OF_SENSORS) {
+			position = 0;
+		}
+		force = readForce(position);
+		if (force > HIT_BOUNDARY) {
+			saveMeasurement(fileName, millis(), position, force);
+		}
+		position++;
 	}
 }
 
